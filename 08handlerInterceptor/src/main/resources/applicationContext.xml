@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 1.扫描包 -->
+    <context:component-scan base-package="com.wq.controller"/>
+
+    <!-- 2.注解驱动 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!-- 3.静态资源 -->
+<!--    <mvc:resources mapping="/js" location=""-->
+    <mvc:default-servlet-handler/>
+
+    <!-- 4.视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 5.配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 以/08handlerInterceptor/handlerInterceptor/开头的请求才会被处理-->
+            <mvc:mapping path="/handlerInterceptor/**"/>
+            <bean class="com.wq.config.LoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!-- 过滤以/开头的所有请求,其他请求不会被处理
+                 若path="/admin" 则以/admin开头的请求才会被处理-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.wq.config.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试iframe体验页面无刷新</title>
+</head>
+<body>
+<div>
+    <!-- src是加载地址 testJQuery.html-->
+    <iframe src="testJQuery.html" frameborder="0" style="width: 100%;height: 300px"></iframe>
+    <!-- 上面src写死了,现在想实现,点击哪个 哪个就进入这个iframe -->
+    <iframe id="iframe1" frameborder="0" style="width: 100%;height: 300px"></iframe>
+</div>
+<div>
+    <p>请输入想要跳转的地址:</p>
+    <p>
+        <input type="text" id="url"/>
+        <!-- 点击提交绑定事件 -->
+        <input type="button" value="提交" onclick="getInIframe()">
+    </p>
+</div>
+</body>
+<script type="text/javascript">
+    function getInIframe(){
+        // 输入本地页面URL测试成功 testJQuery.html
+        var url = document.getElementById("url").value;
+        document.getElementById("iframe1").src=url;
+    }
+</script>
+</html>

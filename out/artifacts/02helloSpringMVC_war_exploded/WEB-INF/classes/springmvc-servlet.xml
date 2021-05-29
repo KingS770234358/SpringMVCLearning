@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 这是一个[标准的spring配置文件] 是SpringMVC需要的
+         名称最好是[在web.xml中定义的Servlet名]-servlet.xml
+         以下的配置,都会在web.xml文件中被用于DispatcherServlet的设置
+    -->
+    <!-- SpringMVC核心三要素 -->
+    <!-- 注入 Spring定义的 处理映射器对象 -->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <!-- 注入 Spring定义的 处理适配器对象 -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    <!-- 注入 Spring定义的 视图解析器 以后学习模板引擎:Thymeleaf freemarker -->
+    <!-- 起个名字id 方便引用 -->
+    <bean id="InternalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 视图文件的前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- 视图文件的后缀 -->
+        <property name="suffix" value=".jsp"/>
+        <!-- 这样只需要传入视图的文件名, 就可以解析出视图的全路径, 取得视图
+             这样的url路径的前后缀复用性强 像子项目01中的req.getRequestDispatcher("/WEB-INF/jsp/test.jsp")
+             过于冗长,没实现前后缀的复用
+        -->
+    </bean>
+    <!-- 上面注入的BeanNameUrlHandlerMapping顾名思义,将url映射成一个bean(class) -->
+    <!-- handler处理器 -->
+    <bean id="/hello" class="com.wq.controller.HelloController"/>
+
+</beans>

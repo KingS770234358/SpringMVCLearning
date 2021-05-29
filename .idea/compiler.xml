@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="1020210315Review" />
+        <module name="01ServletRecall" />
+        <module name="05JsonLearning" />
+        <module name="08handlerInterceptor" />
+        <module name="02helloSpringMVC" />
+        <module name="07AjaxLearning" />
+        <module name="03Annotation_dev" />
+        <module name="04ControllerDetail" />
+        <module name="06SSM_bookSys" />
+        <module name="09FileDownUpLoad" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

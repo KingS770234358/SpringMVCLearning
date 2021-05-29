@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON测试</title>
+    <!-- script标签不能单闭合/自闭合,只能双闭合 -->
+    <script type="text/javascript">
+        // 1.编写JS对象
+        var user = {
+            name:"挖不去啊",
+            age:15,
+            sex:"男"
+        }
+        console.log(user);
+        // 2.调用前端自带的JSON对象的静态方法将JS对象转成JSON字符串
+        var jsonStr = JSON.stringify(user);
+        console.log(jsonStr);
+        // 2.调用前端自带的JSON对象的静态方法将JSON字符串转成JS对象
+        var jsonObj = JSON.parse(jsonStr);
+        console.log(jsonObj);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

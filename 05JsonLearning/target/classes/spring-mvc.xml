@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- spring配置文件 -->
+
+    <!-- 1.自动扫描指定的包,使包下的注解生效!由IOC容器统一管理
+         要想使用注解,一定要使用这个标签扫描包含想生效的注解的包
+    -->
+    <context:component-scan base-package="com.wq.controller"/>
+    <!-- 2.Spring过滤静态资源, .css .js .html .mp3 .mp4
+         防止他们被SpringMVC的视图解析器处理
+     -->
+    <mvc:default-servlet-handler/>
+
+    <!--    注解开发不需要handlerMapping 和handlerAdapter-->
+    <!--    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+    <!--    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+    <!-- 3.支持mvc注解驱动
+             在spring中一般采用@RequestMapping注释来完成映射关系
+             想要使@RequestMapping注解生效,就必须注册DefaultAnnotationHandlerMapping
+             和一个AnnotationMethodHandlerAdapter实例
+             这两个实例在类级别和方法级别进行请求处理
+             annotation-driven自动完成上述两个实例的注入
+             ==========在这里面还可以统一解决JSON乱码问题==========
+     -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- 统一解决JSON乱码问题 -->
+            <!-- 字符Http消息格式转换器 传入参数utf-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <!-- 点进源码查看即可理解 它有一个只包含一个参数的构造函数 -->
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <!-- 使用MappingJackson2HttpMessageConverter来进行JSON字符串和对象的解析 -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <!-- 可以传入空值 -->
+                        <property name="failOnEmptyBeans" value="false"/>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 注解开发也需要视图解析器 -->
+    <bean id="InternalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+<!--    &lt;!&ndash; 通过注解完成url到类或者方法的映射,就不需要注入这个bean了 &ndash;&gt;-->
+<!--    <bean id="/hello" class="com.wq.controller.ControllerDemo1"/>-->
+
+</beans>

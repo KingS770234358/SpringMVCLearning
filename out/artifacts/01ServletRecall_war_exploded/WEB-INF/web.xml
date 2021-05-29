@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!-- web配置文件 所有的配置 都可以通过java类直接实现 -->
+
+    <!-- 配置 注册Servlet -->
+    <!-- 先定义一个Servlet -->
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <!-- 这里写上对应的Servlet java类 全限定名-->
+        <servlet-class>com.wq.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <!-- 在浏览器地址栏里输入下面的url就可以访问到上述的名为hello的Servlet -->
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+    <!-- 配置session -->
+<!--    <session-config>-->
+<!--        &lt;!&ndash; 超时时间(单位:min) &ndash;&gt;-->
+<!--        <session-timeout>15</session-timeout>-->
+<!--    </session-config>-->
+
+    <!-- 欢迎页面的配置 -->
+    <welcome-file-list>
+        <!-- 默认是项目自己生成的index.jsp页面 也可以自己配置 -->
+        <!-- index就在web目录底下,所以可以直接写文件名 -->
+        <welcome-file>welcomePage.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
